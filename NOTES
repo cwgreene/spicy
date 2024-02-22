@@ -1,0 +1,16 @@
+Currently having issues attempting to build ngpsice library. Some
+functions, like cvprod, don't seem to be incorporated into the
+shared library for some reason.
+
+The following command works (note, you may need to nuke the src
+directory)
+
+../configure --with-ngshared --enable-xspice --enable-cider --enable-openmp --enable-osdi --enable-klu --prefix=/usr CFLAGS="-g -m64 -O0 -Wall" LDFLAGS="-m64 -g"
+
+In addition, the clean way of including a shared library with an executable is to use
+
+
+	g++ -I ${HOME}/.local/include -L ./lib -Wl,-rpath '$$ORIGIN/lib' test_spice.cpp -lngspice -o cppspice
+
+Where the key thing is `-Wl,-rpath '$$ORIGIN/lib'`. That `$ORIGIN` is a special variable that is resolved
+upon execution of the executable by the loader. It will resolve to the executable's path.
