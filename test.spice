@@ -1,7 +1,6 @@
 .title TestCircuit
-Ra in p1 5
+Ra vin p1 5
 Rb p1 0 5
-Vin in 0 DC 9
+Vin vin 0 DC 0 EXTERNAL
 .op
 .print op v(p1)
-
