@@ -33,3 +33,5 @@ than 1 second (.688 seconds). That's potentially good enough for real time audio
 cpp version working so we don't have to deal with python overhead. That might bring us into the MHz range.
 
 Obvious follow up questions are "What if the circuit is more complicated than a simple voltage divider?"
+
+C++20 implements count down latches! Huzzah! Previously, I believe you needed to use mutexes+condition_variables.
