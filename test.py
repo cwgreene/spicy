@@ -13,11 +13,11 @@ class MyNgSpiceShared(NgSpiceShared):
 
         self._amplitude = amplitude
         self._pulsation = float(frequency.pulsation)
-
+        print("freq",frequency, frequency.pulsation, math.pi*2*440)
 
     def get_vsrc_data(self, voltage, time, node, ngspice_id):
-        print('ngspice_id-{} get_vsrc_data @{} node {}'.format(ngspice_id, time, node))
         voltage[0] = self._amplitude * math.sin(self._pulsation * time)
+        #print('ngspice_id-{} get_vsrc_data @{} node {}'.format(ngspice_id, time, node),voltage[0])
         return 0
 
 
@@ -35,4 +35,7 @@ simulator = circuit.simulator(tempature=25,
     nominal_temperature=25,
     simulator='ngspice-shared',
     ngspice_shared=ngspice_shared)
-analysis = simulator.transient(step_time=1/440,end_time=2)
+analysis = simulator.transient(step_time=10**-5,end_time=1)
+for i in range(len(analysis.p1)):
+    pass
+    #print(analysis.vin[i], analysis.p1[i])

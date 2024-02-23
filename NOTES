@@ -1,3 +1,4 @@
+2/21
 Currently having issues attempting to build ngpsice library. Some
 functions, like cvprod, don't seem to be incorporated into the
 shared library for some reason.
@@ -15,5 +16,20 @@ In addition, the clean way of including a shared library with an executable is t
 Where the key thing is `-Wl,-rpath '$$ORIGIN/lib'`. That `$ORIGIN` is a special variable that is resolved
 upon execution of the executable by the loader. It will resolve to the executable's path.
 
+2/22
 Unable to get pyspice to work. It says both version 42 (what we built) is unsupported and 36 (which 
 ubuntu provides). Not 100% positive it failed with version 36, but 42 throws an exception.
+
+UPDATE: nope, it did work with 36, it just didn't print out the log messages since they were all
+debug. switched to `print` to validate.
+
+Okay, so why version 42 doesn't work is currently an open question.
+
+UPDATE 2: Actually, it looks like it worked mostly with version 42, just not the last command
+issued to it.
+
+Okay, so muddling around with params, I'm able to get it to simulate 1 second at 10*-5 resolution in less
+than 1 second (.688 seconds). That's potentially good enough for real time audio simulation. Next get the
+cpp version working so we don't have to deal with python overhead. That might bring us into the MHz range.
+
+Obvious follow up questions are "What if the circuit is more complicated than a simple voltage divider?"
