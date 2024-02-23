@@ -16,7 +16,7 @@ class MyNgSpiceShared(NgSpiceShared):
 
 
     def get_vsrc_data(self, voltage, time, node, ngspice_id):
-        self._logger.debug('ngspice_id-{} get_vsrc_data @{} node {}'.format(ngspice_id, time, node))
+        print('ngspice_id-{} get_vsrc_data @{} node {}'.format(ngspice_id, time, node))
         voltage[0] = self._amplitude * math.sin(self._pulsation * time)
         return 0
 

@@ -14,3 +14,6 @@ In addition, the clean way of including a shared library with an executable is t
 
 Where the key thing is `-Wl,-rpath '$$ORIGIN/lib'`. That `$ORIGIN` is a special variable that is resolved
 upon execution of the executable by the loader. It will resolve to the executable's path.
+
+Unable to get pyspice to work. It says both version 42 (what we built) is unsupported and 36 (which 
+ubuntu provides). Not 100% positive it failed with version 36, but 42 throws an exception.
