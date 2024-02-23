@@ -35,3 +35,11 @@ cpp version working so we don't have to deal with python overhead. That might br
 Obvious follow up questions are "What if the circuit is more complicated than a simple voltage divider?"
 
 C++20 implements count down latches! Huzzah! Previously, I believe you needed to use mutexes+condition_variables.
+
+10:13 Alright! The C++ code works. It's not an order of magnitude faster than the python code unfortunately. Recompiling
+ngspice with optimizations enabled and creating optlib allows for another speed up. It's about 6x faster than using
+pyspice. Still need to figure out a clean way of triggering the transient analysis from C++.
+
+Not clear if there's any way to get any easy speedups. We're definitely having some overhead in using a callback
+for every entry in the matrix we populate, and since it's a shared library we can't optimize that out. Batching
+that might help, but we might need to start hacking up ngspice to do that.

@@ -4,6 +4,8 @@
 
 #include <latch>
 
+#include <math.h>
+
 struct CallbackData {
     std::latch latch{1};
 };
@@ -24,6 +26,12 @@ int bgthreadrunning(NG_BOOL isNotRunning, int, void *data) {
     return 0;
 }
 
+int vsrcdata(double *voltage, double time, char *node, int whichSpice, void *data) {
+    *voltage = sin(time*2714);
+    //printf("data: %s %lf\n", node, time);
+    return 0;
+}
+
 int main() {
     const char *hello = "hello";
     CallbackData data;
@@ -36,10 +44,15 @@ int main() {
         bgthreadrunning, /* BGThreadRunning */
         &data);
     printf("All done with init\n");
+    ngSpice_Init_Sync(vsrcdata, /*GetVSRCData*/
+        NULL, /*GetISRCData*/
+        NULL, /*GetSyncData */
+        NULL, /*int id*/
+        NULL  /*data*/);
 
-    ngSpice_Command ("source test.spice");
+    ngSpice_Command ((char*) "source test.spice");
     printf("Loaded spice\n");
-    ngSpice_Command("bg_run");
+    ngSpice_Command((char*) "bg_run");
     data.latch.wait();
     return 0;    
 }
